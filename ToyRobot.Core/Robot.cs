@@ -38,6 +38,17 @@ namespace ToyRobot.Core
                 {
                     result = xPosition + "," + yPosition + "," + direction;
                 }
+                else if (command.Equals("MOVE"))
+                {
+                    if (direction.Equals("N"))
+                        yPosition++;
+                    else if (direction.Equals("E"))
+                        xPosition++;
+                    else if (direction.Equals("W"))
+                        xPosition--;
+                    else if (direction.Equals("S"))
+                        yPosition--;
+                }
             }
 
             return result;
