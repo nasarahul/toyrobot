@@ -49,6 +49,18 @@ namespace ToyRobot.Core
                     else if (direction.Equals("S"))
                         yPosition--;
                 }
+                else if (command.Equals("LEFT"))
+                {
+                    if (direction.Equals("N"))
+                        direction = "W";
+                    else if (direction.Equals("W"))
+                        direction = "S";
+                    else if (direction.Equals("S"))
+                        direction = "E";
+                    else if (direction.Equals("E"))
+                        direction = "N";
+                }
+
             }
 
             return result;

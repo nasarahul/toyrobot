@@ -8,7 +8,7 @@ namespace ToyRobot.Tests
     public class RobotTests
     {
         [TestMethod]
-        public void Robot_CommandReturnFalse_WhenNotPlacedYet()
+        public void Robot_CommandIgnored_WhenNotPlacedYet()
         {
             //arrange
             Robot robot = new Robot();
@@ -19,7 +19,7 @@ namespace ToyRobot.Tests
         }
 
         [TestMethod]
-        public void Robot_CommandReturnTrue_AfterBeingPlaced()
+        public void Robot_CommandReturnEmptyString_AfterBeingPlaced()
         {
             //arrange
             Robot robot = new Robot();
@@ -79,6 +79,7 @@ namespace ToyRobot.Tests
             //assert
             Assert.AreEqual("1,0,S", result);
         }
+
         [TestMethod]
         public void Robot_Report_0_1_W_AfterPlaced_1_1_W_AndSingleMove()
         {
@@ -90,6 +91,58 @@ namespace ToyRobot.Tests
             result = robot.command("REPORT");
             //assert
             Assert.AreEqual("0,1,W", result);
+        }
+
+        [TestMethod]
+        public void Robot_Report_0_0_W_AfterPlaced_0_0_N_AndLeftCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,N");
+            result = robot.command("LEFT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,W", result);
+        }
+
+        [TestMethod]
+        public void Robot_Report_0_0_S_AfterPlaced_0_0_W_AndLeftCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,W");
+            result = robot.command("LEFT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,S", result);
+        }
+
+        [TestMethod]
+        public void Robot_Report_0_0_E_AfterPlaced_0_0_S_AndLeftCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,S");
+            result = robot.command("LEFT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,E", result);
+        }
+
+        [TestMethod]
+        public void Robot_Report_0_0_N_AfterPlaced_0_0_E_AndLeftCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,E");
+            result = robot.command("LEFT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,N", result);
         }
     }
 }
