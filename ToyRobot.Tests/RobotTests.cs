@@ -24,7 +24,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             //assert
             Assert.AreEqual(string.Empty, result);
         }
@@ -35,10 +35,10 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,N", result);
+            Assert.AreEqual("0,0,NORTH", result);
         }
 
         // ************** Test cardinal directions ********************************************
@@ -48,11 +48,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             result = robot.command("MOVE");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,1,N", result);
+            Assert.AreEqual("0,1,NORTH", result);
         }
 
         [TestMethod]
@@ -61,11 +61,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,E");
+            string result = robot.command("PLACE 0,0,EAST");
             result = robot.command("MOVE");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("1,0,E", result);
+            Assert.AreEqual("1,0,EAST", result);
         }
 
         [TestMethod]
@@ -74,11 +74,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 1,1,S");
+            string result = robot.command("PLACE 1,1,SOUTH");
             result = robot.command("MOVE");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("1,0,S", result);
+            Assert.AreEqual("1,0,SOUTH", result);
         }
 
         [TestMethod]
@@ -87,11 +87,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 1,1,W");
+            string result = robot.command("PLACE 1,1,WEST");
             result = robot.command("MOVE");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,1,W", result);
+            Assert.AreEqual("0,1,WEST", result);
         }
 
         // ************** Test left direction ********************************************
@@ -101,11 +101,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             result = robot.command("LEFT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,W", result);
+            Assert.AreEqual("0,0,WEST", result);
         }
 
         [TestMethod]
@@ -114,11 +114,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,W");
+            string result = robot.command("PLACE 0,0,WEST");
             result = robot.command("LEFT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,S", result);
+            Assert.AreEqual("0,0,SOUTH", result);
         }
 
         [TestMethod]
@@ -127,11 +127,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,S");
+            string result = robot.command("PLACE 0,0,SOUTH");
             result = robot.command("LEFT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,E", result);
+            Assert.AreEqual("0,0,EAST", result);
         }
 
         [TestMethod]
@@ -140,11 +140,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,E");
+            string result = robot.command("PLACE 0,0,EAST");
             result = robot.command("LEFT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,N", result);
+            Assert.AreEqual("0,0,NORTH", result);
         }
 
         // ************** Test right direction ********************************************
@@ -154,11 +154,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             result = robot.command("RIGHT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,E", result);
+            Assert.AreEqual("0,0,EAST", result);
         }
         [TestMethod]
         public void Robot_Report_0_0_S_AfterPlaced_0_0_E_AndRightCommand()
@@ -166,11 +166,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,E");
+            string result = robot.command("PLACE 0,0,EAST");
             result = robot.command("RIGHT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,S", result);
+            Assert.AreEqual("0,0,SOUTH", result);
         }
         [TestMethod]
         public void Robot_Report_0_0_W_AfterPlaced_0_0_S_AndRightCommand()
@@ -178,11 +178,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,S");
+            string result = robot.command("PLACE 0,0,SOUTH");
             result = robot.command("RIGHT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,W", result);
+            Assert.AreEqual("0,0,WEST", result);
         }
         [TestMethod]
         public void Robot_Report_0_0_N_AfterPlaced_0_0_W_AndRightCommand()
@@ -190,11 +190,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,W");
+            string result = robot.command("PLACE 0,0,WEST");
             result = robot.command("RIGHT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,N", result);
+            Assert.AreEqual("0,0,NORTH", result);
         }
 
         // ************** Test robot environment boundaries on placement ******************************
@@ -204,7 +204,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE -1,0,W");
+            string result = robot.command("PLACE -1,0,WEST");
             //assert
             Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
         }
@@ -214,7 +214,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,-1,W");
+            string result = robot.command("PLACE 0,-1,WEST");
             //assert
             Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
         }
@@ -224,7 +224,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot(5, 5);
             //act
-            string result = robot.command("PLACE 6,5,W");
+            string result = robot.command("PLACE 6,5,WEST");
             //assert
             Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
         }
@@ -234,7 +234,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot(5, 5);
             //act
-            string result = robot.command("PLACE 5,6,W");
+            string result = robot.command("PLACE 5,6,WEST");
             //assert
             Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
         }
@@ -246,7 +246,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,W");
+            string result = robot.command("PLACE 0,0,WEST");
             result = robot.command("MOVE");
             //assert
             Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
@@ -257,7 +257,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,S");
+            string result = robot.command("PLACE 0,0,SOUTH");
             result = robot.command("MOVE");
             //assert
             Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
@@ -268,7 +268,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot(1,1);
             //act
-            string result = robot.command("PLACE 0,0,E");
+            string result = robot.command("PLACE 0,0,EAST");
             result = robot.command("MOVE");
             result = robot.command("MOVE");
             //assert
@@ -280,7 +280,7 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot(1,1);
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             result = robot.command("MOVE");
             result = robot.command("MOVE");
             //assert
@@ -294,11 +294,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             result = robot.command("MOVE");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,1,N", result);
+            Assert.AreEqual("0,1,NORTH", result);
         }
         [TestMethod]
         public void ProvidedTest_B()
@@ -306,11 +306,11 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,NORTH");
             result = robot.command("LEFT");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("0,0,W", result);
+            Assert.AreEqual("0,0,WEST", result);
         }
         [TestMethod]
         public void ProvidedTest_C()
@@ -318,14 +318,40 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            string result = robot.command("PLACE 1,2,E");
+            string result = robot.command("PLACE 1,2,EAST");
             result = robot.command("MOVE");
             result = robot.command("MOVE");
             result = robot.command("LEFT");
             result = robot.command("MOVE");
             result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("3,3,N", result);
+            Assert.AreEqual("3,3,NORTH", result);
         }
+
+        // ************** Test garbage input ************************
+        [TestMethod]
+        public void Robot_ReturnsErrorMessage_AfterPlacement_WhenGarbageCommandSent()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 1,2,EAST");
+            result = robot.command("BANANAS");
+            //assert
+            Assert.AreEqual(Robot.COMMAND_NOT_RECOGNISED_MESSAGE, result);
+        }
+
+        // ************** Test garbage input ************************
+        [TestMethod]
+        public void Robot_ReturnsValidCommandsMessage_WhenGarbageCommandSent()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE %,2,EAST");
+            //assert
+            Assert.AreEqual(Robot.VALID_COMMANDS_MESSAGE, result);
+        }
+
     }
 }
