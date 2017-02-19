@@ -13,9 +13,9 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            bool success = robot.command("REPORT");
+            string result = robot.command("REPORT");
             //assert
-            Assert.IsFalse(success);
+            Assert.AreEqual("<Command ignored - robot not placed yet>", result);
         }
 
         [TestMethod]
@@ -24,9 +24,21 @@ namespace ToyRobot.Tests
             //arrange
             Robot robot = new Robot();
             //act
-            bool success = robot.command("PLACE 0,0,N");
+            string result = robot.command("PLACE 0,0,N");
             //assert
-            Assert.IsTrue(success);
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [TestMethod]
+        public void Robot_Report_AfterBeingPlaced()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,N");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,N", result);
         }
     }
 }

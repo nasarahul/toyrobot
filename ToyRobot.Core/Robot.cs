@@ -14,9 +14,10 @@ namespace ToyRobot.Core
         int yPosition = -1;
         string direction = string.Empty;
 
-        public bool command(string input)
+        public string command(string input)
         {
             string command = input.ToUpper();
+            string result = string.Empty;
 
             if (command.Contains("PLACE"))
             {
@@ -29,11 +30,17 @@ namespace ToyRobot.Core
 
                 isPlaced = true;
             }
+            else
+            {
+                if (!isPlaced)
+                    result = "<Command ignored - robot not placed yet>";
+                else if (command.Equals("REPORT"))
+                {
+                    result = xPosition + "," + yPosition + "," + direction;
+                }
+            }
 
-            if (!isPlaced)
-                return false;
-
-            return true;
+            return result;
         }
     }
 }
