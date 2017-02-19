@@ -41,6 +41,7 @@ namespace ToyRobot.Tests
             Assert.AreEqual("0,0,N", result);
         }
 
+        // ************** Test cardinal directions ********************************************
         [TestMethod]
         public void Robot_Report_0_1_N_AfterPlaced_0_0_N_AndSingleMove()
         {
@@ -93,6 +94,7 @@ namespace ToyRobot.Tests
             Assert.AreEqual("0,1,W", result);
         }
 
+        // ************** Test left direction ********************************************
         [TestMethod]
         public void Robot_Report_0_0_W_AfterPlaced_0_0_N_AndLeftCommand()
         {
@@ -143,6 +145,98 @@ namespace ToyRobot.Tests
             result = robot.command("REPORT");
             //assert
             Assert.AreEqual("0,0,N", result);
+        }
+
+        // ************** Test right direction ********************************************
+        [TestMethod]
+        public void Robot_Report_0_0_E_AfterPlaced_0_0_N_AndRightCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,N");
+            result = robot.command("RIGHT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,E", result);
+        }
+        [TestMethod]
+        public void Robot_Report_0_0_S_AfterPlaced_0_0_E_AndRightCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,E");
+            result = robot.command("RIGHT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,S", result);
+        }
+        [TestMethod]
+        public void Robot_Report_0_0_W_AfterPlaced_0_0_S_AndRightCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,S");
+            result = robot.command("RIGHT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,W", result);
+        }
+        [TestMethod]
+        public void Robot_Report_0_0_N_AfterPlaced_0_0_W_AndRightCommand()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,W");
+            result = robot.command("RIGHT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,N", result);
+        }
+
+        // ************** Test robot environment boundaries ***************************************
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterPlace_NegativeXCoordinate()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE -1,0,W");
+            //assert
+            Assert.AreEqual("<Command ignored - out of bounds>", result);
+        }
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterPlace_NegativeYCoordinate()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,-1,W");
+            //assert
+            Assert.AreEqual("<Command ignored - out of bounds>", result);
+        }
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterPlace_UpperBoundX()
+        {
+            //arrange
+            Robot robot = new Robot(5,5);
+            //act
+            string result = robot.command("PLACE 6,5,W");
+            //assert
+            Assert.AreEqual("<Command ignored - out of bounds>", result);
+        }
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterPlace_UpperBoundY()
+        {
+            //arrange
+            Robot robot = new Robot(5, 5);
+            //act
+            string result = robot.command("PLACE 5,6,W");
+            //assert
+            Assert.AreEqual("<Command ignored - out of bounds>", result);
         }
     }
 }

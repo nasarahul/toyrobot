@@ -10,9 +10,28 @@ namespace ToyRobot.Core
     {
         bool isPlaced = false;
 
+        int xLowerBoundary = 0;
+        int yLowerBoundary = 0;
+        int xUpperBoundary = -1;
+        int yUpperBoundary = -1;
+
         int xPosition = -1;
         int yPosition = -1;
         string direction = string.Empty;
+
+        // Default table size 5,5 if not supplied
+        public Robot()
+        {
+            xUpperBoundary = 5;
+            yUpperBoundary = 5;
+        }
+
+        // Custom table size if required
+        public Robot(int tableSizeX, int tableSizeY)
+        {
+            xUpperBoundary = tableSizeX;
+            yUpperBoundary = tableSizeY;
+        }
 
         public string command(string input)
         {
@@ -28,7 +47,12 @@ namespace ToyRobot.Core
                 yPosition = Int32.Parse(wordsInCommand[2]);
                 direction = wordsInCommand[3];
 
-                isPlaced = true;
+                if ((xPosition < xLowerBoundary) || (yPosition < yLowerBoundary))
+                    result = "<Command ignored - out of bounds>";
+                else if ((xPosition > xUpperBoundary) || (yPosition > yUpperBoundary))
+                    result = "<Command ignored - out of bounds>";
+                else
+                    isPlaced = true;
             }
             else
             {
@@ -60,7 +84,17 @@ namespace ToyRobot.Core
                     else if (direction.Equals("E"))
                         direction = "N";
                 }
-
+                else if (command.Equals("RIGHT"))
+                {
+                    if (direction.Equals("N"))
+                        direction = "E";
+                    else if (direction.Equals("E"))
+                        direction = "S";
+                    else if (direction.Equals("S"))
+                        direction = "W";
+                    else if (direction.Equals("W"))
+                        direction = "N";
+                }
             }
 
             return result;
