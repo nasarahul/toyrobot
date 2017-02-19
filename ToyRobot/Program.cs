@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using ToyRobot.Core;
 
-namespace ConsoleApplication1
+namespace ToyRobot
 {
     class Program
     {
         static void Main(string[] args)
         {
             string inputCommand = String.Empty;
-            string robotOutput = String.Empty;
+            bool commandSuccess = false;
             Robot robot = new Robot();
 
             Console.WriteLine("Robot created. Enter commands to send to Robot. (X at any time to quit)");
@@ -25,8 +25,7 @@ namespace ConsoleApplication1
                 if (inputCommand.ToUpper().Equals("X"))
                     break;
 
-                robotOutput = robot.command(inputCommand);
-                Console.WriteLine(robotOutput);
+                commandSuccess = robot.command(inputCommand);
             }
             Console.WriteLine("Exited - press any key to close");
             Console.ReadLine();

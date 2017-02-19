@@ -10,14 +10,30 @@ namespace ToyRobot.Core
     {
         bool isPlaced = false;
 
-        public string command(string input)
+        int xPosition = -1;
+        int yPosition = -1;
+        string direction = string.Empty;
+
+        public bool command(string input)
         {
-            string output = string.Empty;
+            string command = input.ToUpper();
+
+            if (command.Contains("PLACE"))
+            {
+                char[] delimiterChars = { ',', ' ' };
+                string[] wordsInCommand = command.Split(delimiterChars);
+
+                xPosition = Int32.Parse(wordsInCommand[1]);
+                yPosition = Int32.Parse(wordsInCommand[2]);
+                direction = wordsInCommand[3];
+
+                isPlaced = true;
+            }
 
             if (!isPlaced)
-                output = "<Command ignored, not yet placed>";
+                return false;
 
-            return output;
+            return true;
         }
     }
 }
