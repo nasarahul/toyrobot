@@ -15,7 +15,7 @@ namespace ToyRobot.Tests
             //act
             string result = robot.command("REPORT");
             //assert
-            Assert.AreEqual("<Command ignored - robot not placed yet>", result);
+            Assert.AreEqual(Robot.NOT_PLACED_YET_MESSAGE, result);
         }
 
         [TestMethod]
@@ -197,7 +197,7 @@ namespace ToyRobot.Tests
             Assert.AreEqual("0,0,N", result);
         }
 
-        // ************** Test robot environment boundaries ***************************************
+        // ************** Test robot environment boundaries on placement ******************************
         [TestMethod]
         public void Robot_IgnoreCommand_AfterPlace_NegativeXCoordinate()
         {
@@ -206,7 +206,7 @@ namespace ToyRobot.Tests
             //act
             string result = robot.command("PLACE -1,0,W");
             //assert
-            Assert.AreEqual("<Command ignored - out of bounds>", result);
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
         }
         [TestMethod]
         public void Robot_IgnoreCommand_AfterPlace_NegativeYCoordinate()
@@ -216,17 +216,17 @@ namespace ToyRobot.Tests
             //act
             string result = robot.command("PLACE 0,-1,W");
             //assert
-            Assert.AreEqual("<Command ignored - out of bounds>", result);
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
         }
         [TestMethod]
         public void Robot_IgnoreCommand_AfterPlace_UpperBoundX()
         {
             //arrange
-            Robot robot = new Robot(5,5);
+            Robot robot = new Robot(5, 5);
             //act
             string result = robot.command("PLACE 6,5,W");
             //assert
-            Assert.AreEqual("<Command ignored - out of bounds>", result);
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
         }
         [TestMethod]
         public void Robot_IgnoreCommand_AfterPlace_UpperBoundY()
@@ -236,7 +236,96 @@ namespace ToyRobot.Tests
             //act
             string result = robot.command("PLACE 5,6,W");
             //assert
-            Assert.AreEqual("<Command ignored - out of bounds>", result);
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
+        }
+
+        // ************** Test robot environment boundaries on movement ************************
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterMove_NegativeXCoordinate()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,W");
+            result = robot.command("MOVE");
+            //assert
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
+        }
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterMove_NegativeYCoordinate()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,S");
+            result = robot.command("MOVE");
+            //assert
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
+        }
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterMove_UpperBoundXCoordinate()
+        {
+            //arrange
+            Robot robot = new Robot(1,1);
+            //act
+            string result = robot.command("PLACE 0,0,E");
+            result = robot.command("MOVE");
+            result = robot.command("MOVE");
+            //assert
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
+        }
+        [TestMethod]
+        public void Robot_IgnoreCommand_AfterMove_UpperBoundYCoordinate()
+        {
+            //arrange
+            Robot robot = new Robot(1,1);
+            //act
+            string result = robot.command("PLACE 0,0,N");
+            result = robot.command("MOVE");
+            result = robot.command("MOVE");
+            //assert
+            Assert.AreEqual(Robot.OUT_OF_BOUNDS_MESSAGE, result);
+        }
+
+        // ************** Sample tests provided ************************
+        [TestMethod]
+        public void ProvidedTest_A()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,N");
+            result = robot.command("MOVE");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,1,N", result);
+        }
+        [TestMethod]
+        public void ProvidedTest_B()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 0,0,N");
+            result = robot.command("LEFT");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("0,0,W", result);
+        }
+        [TestMethod]
+        public void ProvidedTest_C()
+        {
+            //arrange
+            Robot robot = new Robot();
+            //act
+            string result = robot.command("PLACE 1,2,E");
+            result = robot.command("MOVE");
+            result = robot.command("MOVE");
+            result = robot.command("LEFT");
+            result = robot.command("MOVE");
+            result = robot.command("REPORT");
+            //assert
+            Assert.AreEqual("3,3,N", result);
         }
     }
 }

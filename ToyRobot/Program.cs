@@ -12,10 +12,10 @@ namespace ToyRobot
         static void Main(string[] args)
         {
             string inputCommand = String.Empty;
-            string commandResult = String.Empty;
+
             Robot robot = new Robot();
 
-            Console.WriteLine("Robot created. Enter commands to send to Robot. (X at any time to quit)");
+            Console.WriteLine("Robot initialised. Enter commands to send to Robot: (X at any time to quit)");
 
             while (true)
             {
@@ -25,8 +25,8 @@ namespace ToyRobot
                 if (inputCommand.ToUpper().Equals("X"))
                     break;
 
-                commandResult = robot.command(inputCommand);
-                Console.WriteLine(commandResult);
+                Console.WriteLine(robot.command(inputCommand));
+                Console.WriteLine();
             }
             Console.WriteLine("Exited - press any key to close");
             Console.ReadLine();

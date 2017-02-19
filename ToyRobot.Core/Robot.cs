@@ -8,16 +8,17 @@ namespace ToyRobot.Core
 {
     public class Robot
     {
-        bool isPlaced = false;
+        public const string OUT_OF_BOUNDS_MESSAGE = "<Command ignored - out of bounds>";
+        public const string NOT_PLACED_YET_MESSAGE = "<Command ignored - robot not placed yet>";
+        private const int xLowerBoundary = 0;
+        private const int yLowerBoundary = 0;
 
-        int xLowerBoundary = 0;
-        int yLowerBoundary = 0;
-        int xUpperBoundary = -1;
-        int yUpperBoundary = -1;
-
-        int xPosition = -1;
-        int yPosition = -1;
-        string direction = string.Empty;
+        private int xUpperBoundary = -1;
+        private int yUpperBoundary = -1;
+        private int xPosition = -1;
+        private int yPosition = -1;
+        private string direction = string.Empty;
+        private bool isPlaced = false;
 
         // Default table size 5,5 if not supplied
         public Robot()
@@ -26,11 +27,21 @@ namespace ToyRobot.Core
             yUpperBoundary = 5;
         }
 
-        // Custom table size if required
+        // Custom table size if supplied
         public Robot(int tableSizeX, int tableSizeY)
         {
             xUpperBoundary = tableSizeX;
             yUpperBoundary = tableSizeY;
+        }
+
+        private bool validatePosition()
+        {
+            if ((xPosition < xLowerBoundary) || (yPosition < yLowerBoundary))
+                return false;
+            else if ((xPosition > xUpperBoundary) || (yPosition > yUpperBoundary))
+                return false;
+            else
+                return true;
         }
 
         public string command(string input)
@@ -47,23 +58,24 @@ namespace ToyRobot.Core
                 yPosition = Int32.Parse(wordsInCommand[2]);
                 direction = wordsInCommand[3];
 
-                if ((xPosition < xLowerBoundary) || (yPosition < yLowerBoundary))
-                    result = "<Command ignored - out of bounds>";
-                else if ((xPosition > xUpperBoundary) || (yPosition > yUpperBoundary))
-                    result = "<Command ignored - out of bounds>";
+                if (!validatePosition())
+                    result = OUT_OF_BOUNDS_MESSAGE;
                 else
                     isPlaced = true;
             }
             else
             {
                 if (!isPlaced)
-                    result = "<Command ignored - robot not placed yet>";
+                    result = NOT_PLACED_YET_MESSAGE;
                 else if (command.Equals("REPORT"))
                 {
                     result = xPosition + "," + yPosition + "," + direction;
                 }
                 else if (command.Equals("MOVE"))
                 {
+                    int originalX = this.xPosition;
+                    int originalY = this.yPosition;
+
                     if (direction.Equals("N"))
                         yPosition++;
                     else if (direction.Equals("E"))
@@ -72,6 +84,13 @@ namespace ToyRobot.Core
                         xPosition--;
                     else if (direction.Equals("S"))
                         yPosition--;
+
+                    if (!validatePosition())
+                    {
+                        xPosition = originalX;
+                        yPosition = originalY;
+                        result = OUT_OF_BOUNDS_MESSAGE;
+                    }
                 }
                 else if (command.Equals("LEFT"))
                 {
